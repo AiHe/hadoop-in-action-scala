@@ -1,6 +1,7 @@
 package hia.part2.chapter4
 
 import com.twitter.scalding._
+import util.TimeUtil
 
 /**
  * Created by aihe on 9/6/15.
@@ -23,4 +24,15 @@ class InnerProduct(args: Args) extends Job(args) {
     _.sum[Double]('prod)
   }.discard('key3)
     .write(TextLine(args("output")))
+}
+
+object InnerProductRunner extends App {
+
+  import org.apache.hadoop.conf.Configuration
+  import org.apache.hadoop.util.ToolRunner
+
+  val timer = TimeUtil.withTime("InnerProduct running time") {
+    ToolRunner.run(new Configuration, new Tool, (classOf[InnerProduct].getName :: "--local" :: args.toList).toArray)
+  }
+  println(s"Execution time: $timer msec")
 }
