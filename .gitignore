@@ -1,6 +1,7 @@
-*.idea/*
+.idea
 *.iml
-*out/*
-*project/*
-*target/*
-*data/*
+out
+project/project
+project/target
+target
+data
